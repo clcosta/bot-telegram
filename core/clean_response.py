@@ -38,7 +38,7 @@ class CleanResponse:
     def clean_mercado_livre(self, response):
         bs = BeautifulSoup(response.text, "html.parser")
         tag_preco = bs.select(
-            "html > body > main > div > div:nth-of-type(1) > section > ol > li > div > div > a > div > div > div > div > div > span:nth-of-type(1) > span:nth-of-type(2)"
+            "li.ui-search-layout__item > div > div > div > div > div > div > div > div > div > span > span > span.price-tag-fraction"
         )
         tag_links = bs.select("div.ui-search-result__image > a.ui-search-link")
         tag_nomes = bs.select("h2.ui-search-item__title")
@@ -60,7 +60,7 @@ class CleanResponse:
 
         bs = BeautifulSoup(response.text, "html.parser")
         tag_preco = bs.find_all("span", attrs={"class": "priceCard"})
-        tag_nomes = bs.find_all("h2", attrs={"class": "nameCard"})
+        tag_nomes = bs.find_all("span", attrs={"class": "nameCard"})
         tag_links = list(
             map(
                 lambda x: x.parent,
